@@ -14,8 +14,11 @@ public class Servicio {
     @GeneratedValue
     private Long id;
 
-    @OneToMany
-    private List<Tarifa> contratistas;
+    @OneToMany(mappedBy = "servicio")
+    private List<Tarifa> tarifas;
+
+    @OneToMany(mappedBy = "servicio")
+    private List<Trabajo> trabajos;
 
     private String nombre;
 
@@ -35,11 +38,11 @@ public class Servicio {
     }
 
     public List<Tarifa> getContratistas() {
-        return contratistas;
+        return tarifas;
     }
 
-    public void setContratistas(List<Tarifa> contratistas) {
-        this.contratistas = contratistas;
+    public void setContratistas(List<Tarifa> tarifas) {
+        this.tarifas = tarifas;
     }
 
     public String getNombre() {

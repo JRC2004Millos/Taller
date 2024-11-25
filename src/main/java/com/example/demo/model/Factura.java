@@ -25,7 +25,7 @@ public class Factura {
     @JoinColumn(name = "idCliente")
     private Cliente cliente;
 
-    @OneToMany
+    @OneToMany(mappedBy = "factura")
     private List<Trabajo> trabajos;
 
     public Factura() {

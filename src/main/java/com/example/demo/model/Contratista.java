@@ -14,10 +14,10 @@ public class Contratista {
     @GeneratedValue
     private Long id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "contratista")
     private List<Tarifa> tarifas;
 
-    @OneToMany
+    @OneToMany(mappedBy = "contratista")
     private List<Trabajo> trabajos;
 
     private String nombre;

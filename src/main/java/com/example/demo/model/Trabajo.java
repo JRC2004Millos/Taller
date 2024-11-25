@@ -21,6 +21,10 @@ public class Trabajo {
     @JoinColumn(name = "contratista_id")
     private Contratista contratista;
 
+    @ManyToOne
+    @JoinColumn(name = "servicio_id")
+    private Servicio servicio;
+
     private Double porcentaje;
 
     public Trabajo() {
@@ -60,6 +64,14 @@ public class Trabajo {
 
     public void setPorcentaje(Double porcentaje) {
         this.porcentaje = porcentaje;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
     }
 
 }

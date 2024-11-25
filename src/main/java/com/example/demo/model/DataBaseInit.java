@@ -13,6 +13,7 @@ import com.example.demo.repository.ContratistaRepository;
 import com.example.demo.repository.FacturaRepository;
 import com.example.demo.repository.ServicioRepository;
 import com.example.demo.repository.TarifaRepository;
+import com.example.demo.repository.TrabajoRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -34,6 +35,9 @@ public class DataBaseInit implements ApplicationRunner {
 
     @Autowired
     TarifaRepository tarifaRepository;
+
+    @Autowired
+    TrabajoRepository trabajoRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -111,21 +115,37 @@ public class DataBaseInit implements ApplicationRunner {
         List<Factura> facturas = facturaRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
 
-        int indiceCliente = 0;
         for (Factura factura : facturas) {
+            int indiceCliente = (int) (Math.random() * clientes.size());
             factura.setCliente(clientes.get(indiceCliente));
             facturaRepository.save(factura);
-
-            indiceCliente++;
         }
 
-        int indice = 0;
         for (Tarifa tarifa : tarifaRepository.findAll()) {
+            int indice = (int) (Math.random() * contratistaRepository.findAll().size());
             tarifa.setContratista(contratistaRepository.findAll().get(indice));
             tarifa.setServicio(servicioRepository.findAll().get(indice));
             tarifaRepository.save(tarifa);
-
-            indice++;
         }
+
+        // Crear trabajos
+        trabajoRepository.save(new Trabajo(10.0));
+        trabajoRepository.save(new Trabajo(15.0));
+        trabajoRepository.save(new Trabajo(5.0));
+        trabajoRepository.save(new Trabajo(20.0));
+        trabajoRepository.save(new Trabajo(12.0));
+        trabajoRepository.save(new Trabajo(8.0));
+
+        for (Trabajo trabajo : trabajoRepository.findAll()) {
+            int randomIndex = (int) (Math.random() * contratistaRepository.findAll().size());
+            trabajo.setContratista(contratistaRepository.findAll().get(randomIndex));
+
+            randomIndex = (int) (Math.random() * facturaRepository.findAll().size());
+            trabajo.setFactura(facturaRepository.findAll().get(randomIndex));
+
+            randomIndex = (int) (Math.random() * servicioRepository.findAll().size());
+            trabajo.setServicio(servicioRepository.findAll().get(randomIndex));
+        }
+
     }
 }
