@@ -1,10 +1,14 @@
 package com.example.demo.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Factura {
@@ -15,16 +19,21 @@ public class Factura {
 
     private Date fecha;
     private float costoTotal;
-    private float saldo;
     private float abono;
+
+    @ManyToOne
+    @JoinColumn(name = "idCliente")
+    private Cliente cliente;
+
+    @OneToMany
+    private List<Trabajo> trabajos;
 
     public Factura() {
     }
 
-    public Factura(Date fecha, float costoTotal, float saldo, float abono) {
+    public Factura(Date fecha, float costoTotal, float abono) {
         this.fecha = fecha;
         this.costoTotal = costoTotal;
-        this.saldo = saldo;
         this.abono = abono;
     }
 
@@ -52,14 +61,6 @@ public class Factura {
         this.costoTotal = costoTotal;
     }
 
-    public float getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(float saldo) {
-        this.saldo = saldo;
-    }
-
     public float getAbono() {
         return abono;
     }
@@ -68,4 +69,11 @@ public class Factura {
         this.abono = abono;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }

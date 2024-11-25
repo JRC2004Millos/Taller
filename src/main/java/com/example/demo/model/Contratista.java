@@ -5,29 +5,31 @@ import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;;
+import jakarta.persistence.OneToMany;
 
 @Entity
-public class Cliente {
+public class Contratista {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @OneToMany
+    private List<Tarifa> tarifas;
+
+    @OneToMany
+    private List<Trabajo> trabajos;
+
     private String nombre;
+
     private Long celular;
-    private String correo;
 
-    @OneToMany(mappedBy = "cliente", cascade = jakarta.persistence.CascadeType.ALL)
-    private List<Factura> facturas;
-
-    public Cliente() {
+    public Contratista() {
     }
 
-    public Cliente(String nombre, Long celular, String correo) {
+    public Contratista(String nombre, Long celular) {
         this.nombre = nombre;
         this.celular = celular;
-        this.correo = correo;
     }
 
     public Long getId() {
@@ -36,6 +38,14 @@ public class Cliente {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Tarifa> getTarifas() {
+        return tarifas;
+    }
+
+    public void setTarifas(List<Tarifa> servicios) {
+        this.tarifas = servicios;
     }
 
     public String getNombre() {
@@ -54,19 +64,11 @@ public class Cliente {
         this.celular = celular;
     }
 
-    public String getCorreo() {
-        return correo;
+    public List<Trabajo> getTrabajos() {
+        return trabajos;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public List<Factura> getFacturas() {
-        return facturas;
-    }
-
-    public void setFacturas(List<Factura> facturas) {
-        this.facturas = facturas;
+    public void setTrabajos(List<Trabajo> trabajos) {
+        this.trabajos = trabajos;
     }
 }

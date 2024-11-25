@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="https://thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inicio</title>
+    <title>Crear Cliente</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -23,58 +23,61 @@
         <div class="container-fluid">
           <a class="navbar-brand text-white" href="/">FRANK REPARACIONES</a>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex ms-auto" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Buscar..."
-                aria-label="Buscar"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Buscar
-              </button>
-            </form>
+            <a
+              class="btn btn-outline-danger ms-3 d-flex ms-auto"
+              href="/clientes/ver"
+              >Volver</a
+            >
           </div>
         </div>
       </nav>
 
-      <div class="container mt-5">
-        <div class="row g-3">
-          <div class="col-6">
-            <button
-              class="btn btn-secondary w-100"
-              onclick="window.location.href='/facturas/ver' "
-            >
-              <div class="p-3 text-white-emphasis">Gestionar facturas</div>
-            </button>
+      <h1 class="text-center mt-5">Crear Cliente</h1>
+
+      <div class="container mt-5 bg-secondary p-3 rounded w-50">
+        <form
+          th:object="${cliente}"
+          class="form-inline"
+          method="post"
+          th:action="@{/clientes/crear}"
+        >
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              th:field="*{nombre}"
+              required
+            />
           </div>
-          <div class="col-6">
-            <button
-              class="btn btn-secondary w-100"
-              onclick="window.location.href='/clientes/ver' "
-            >
-              <div class="p-3 text-white-emphasis">Gestionar clientes</div>
-            </button>
+
+          <div class="mt-3">
+            <label for="correo" class="form-label">Correo</label>
+            <input
+              type="email"
+              class="form-control"
+              id="correo"
+              th:field="*{correo}"
+              required
+            />
           </div>
-          <div class="col-6">
-            <button class="btn btn-secondary w-100">
-              <div class="p-3 text-white-emphasis">Gestionar servicios</div>
-            </button>
+
+          <div class="mt-3">
+            <label for="celular" class="form-label">Celular</label>
+            <input
+              type="number"
+              class="form-control"
+              id="celular"
+              th:field="*{celular}"
+              required
+            />
           </div>
-          <div class="col-6">
-            <button class="btn btn-secondary w-100">
-              <div class="p-3 text-white-emphasis">Gestionar contratistas</div>
-            </button>
-          </div>
-          <div class="col-6">
-            <button class="btn btn-secondary w-100">
-              <div class="p-3 text-white-emphasis">Gestionar proveedores</div>
-            </button>
-          </div>
-        </div>
+
+          <button type="submit" class="mt-3 btn btn-primary">Enviar</button>
+        </form>
       </div>
     </div>
-
     <div class="container-fluid mt-5">
       <footer
         class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"

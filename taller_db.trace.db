@@ -1,0 +1,28 @@
+2024-09-02 23:23:54.236826-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "'555-1234' (CLIENTE: ""CELULAR"" BIGINT)"
+Data conversion error converting "'555-1234' (CLIENTE: ""CELULAR"" BIGINT)"; SQL statement:
+INSERT INTO CLIENTE (nombre, correo, celular) VALUES
+('Juan Pérez', 'juan.perez@email.com', '555-1234'),
+('María López', 'maria.lopez@email.com', '555-5678'),
+('Carlos García', 'carlos.garcia@email.com', '555-9876'),
+('Ana Rodríguez', 'ana.rodriguez@email.com', '555-4321'),
+('Luis Fernández', 'luis.fernandez@email.com', '555-8765'),
+('Laura Sánchez', 'laura.sanchez@email.com', '555-3456'),
+('Jorge Ramírez', 'jorge.ramirez@email.com', '555-6543'),
+('Sofía Torres', 'sofia.torres@email.com', '555-7890'),
+('David Martínez', 'david.martinez@email.com', '555-8901'),
+('Elena Gómez', 'elena.gomez@email.com', '555-0123') [22018-224]
+2024-09-02 23:24:36.283237-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "'555-1234' (CLIENTE: ""CELULAR"" BIGINT)"
+Data conversion error converting "'555-1234' (CLIENTE: ""CELULAR"" BIGINT)"; SQL statement:
+INSERT INTO CLIENTE (nombre, correo, celular) VALUES
+('Juan Pérez', 'juan.perez@email.com', '555-1234'),
+('María López', 'maria.lopez@email.com', '555-5678'),
+('Carlos García', 'carlos.garcia@email.com', '555-9876'),
+('Ana Rodríguez', 'ana.rodriguez@email.com', '555-4321'),
+('Luis Fernández', 'luis.fernandez@email.com', '555-8765'),
+('Laura Sánchez', 'laura.sanchez@email.com', '555-3456'),
+('Jorge Ramírez', 'jorge.ramirez@email.com', '555-6543'),
+('Sofía Torres', 'sofia.torres@email.com', '555-7890'),
+('David Martínez', 'david.martinez@email.com', '555-8901'),
+('Elena Gómez', 'elena.gomez@email.com', '555-0123') [22018-224]

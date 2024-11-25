@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear Factura</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script src="../static/js/scriptServicios.js" defer></script>
+    <style>
+      .no-padding {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid flex-grow-1 no-padding">
+      <nav class="navbar navbar-expand-lg bg-dark w-100 p-3">
+        <div class="container-fluid">
+          <a class="navbar-brand text-white" href="/">FRANK REPARACIONES</a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="btn btn-outline-danger ms-3 d-flex ms-auto" href="ver"
+              >Volver</a
+            >
+          </div>
+        </div>
+      </nav>
+
+      <h1 class="text-center mt-5">Crear Factura</h1>
+
+      <div class="container mt-5 bg-secondary p-3 rounded">
+        <form
+          th:action="@{/facturas/crear}"
+          th:object="${factura}"
+          method="post"
+          class="form-inline"
+        >
+          <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input
+              type="date"
+              class="form-control"
+              id="fecha"
+              th:field="*{fecha}"
+              required
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="contratistas"
+              >Seleccione los contratistas que trabajaron:</label
+            >
+
+            <div class="row">
+              <!-- Iteramos sobre la lista de contratistas -->
+              <div class="col-md-4" th:each="contratista : ${contratistas}">
+                <div class="form-check">
+                  <!-- Generamos una checkbox para cada contratista -->
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    th:id="${contratista.id}"
+                    th:name="contratistas"
+                    th:value="${contratista.nombre}"
+                  />
+                  <label
+                    class="form-check-label"
+                    th:for="${contratista.nombre}"
+                    th:text="${contratista.nombre}"
+                  ></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="servicios">Seleccione los servicios:</label>
+
+            <div class="row">
+              <!-- Iteramos sobre la lista de servicios -->
+              <div class="col-md-4" th:each="servicio : ${servicios}">
+                <div class="form-check">
+                  <!-- Generamos una checkbox para cada servicio -->
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    th:id="${servicio.id}"
+                    th:name="servicios"
+                    th:value="${servicio.nombre}"
+                  />
+                  <label
+                    class="form-check-label"
+                    th:for="${servicio.nombre}"
+                    th:text="${servicio.nombre}"
+                  ></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <label for="abono" class="form-label">Abono Inicial</label>
+            <input
+              type="number"
+              class="form-control"
+              id="abono"
+              th:field="*{abono}"
+              required
+            />
+          </div>
+
+          <div class="mt-3">
+            <label for="costoTotal" class="form-label">Costo Total</label>
+            <input
+              type="number"
+              class="form-control"
+              id="costoTotal"
+              th:field="*{costoTotal}"
+              required
+            />
+          </div>
+
+          <button type="submit" class="mt-3 btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+      >
+        <p class="col-md-4 mb-0 text-muted">&copy; 2024 Frank Reparaciones</p>
+
+        <a
+          href="/"
+          class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+        >
+          <svg class="bi me-2" width="40" height="32">
+            <use xlink:href="#bootstrap" />
+          </svg>
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item">
+            <a href="/" class="nav-link px-2 text-muted">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a href="/facturas/ver" class="nav-link px-2 text-muted"
+              >Facturas</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/clientes/ver" class="nav-link px-2 text-muted"
+              >Clientes</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/servicios/ver" class="nav-link px-2 text-muted"
+              >Servicios</a
+            >
+          </li>
+        </ul>
+      </footer>
+    </div>
+  </body>
+</html>
