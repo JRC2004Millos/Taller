@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,12 @@ public interface ContratistaService {
 
     public Contratista findById(Long id);
 
-    public Collection<Contratista> findAll();
+    public List<Contratista> findAll();
 
     public void deleteById(Long id);
 
     public void update(Contratista contratista);
+
+    public List<Contratista> findByNombreContainingIgnoreCase(String nombre);
 
 }

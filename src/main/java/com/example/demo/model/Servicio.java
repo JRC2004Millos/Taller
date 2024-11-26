@@ -14,10 +14,10 @@ public class Servicio {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "servicio")
+    @OneToMany(mappedBy = "servicio", cascade = jakarta.persistence.CascadeType.ALL)
     private List<Tarifa> tarifas;
 
-    @OneToMany(mappedBy = "servicio")
+    @OneToMany(mappedBy = "servicio", cascade = jakarta.persistence.CascadeType.ALL)
     private List<Trabajo> trabajos;
 
     private String nombre;

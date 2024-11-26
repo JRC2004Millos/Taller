@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Servicios</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .no-padding {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid flex-grow-1 no-padding">
+      <nav class="navbar navbar-expand-lg bg-dark w-100 p-3">
+        <div class="container-fluid">
+          <a class="navbar-brand text-white" href="/">FRANK REPARACIONES</a>
+          <div
+            class="collapse navbar-collapse d-flex justify-content-end align-items-center"
+            id="navbarSupportedContent"
+          >
+            <!-- Botón "Crear Servicio" -->
+            <button
+              class="btn btn-outline-primary me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#crearServicioModal"
+            >
+              Crear Servicio
+            </button>
+            <!-- Barra de búsqueda -->
+            <form
+              class="d-flex"
+              role="search"
+              th:action="@{/servicios/filtrar}"
+              method="get"
+            >
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Buscar por nombre..."
+                aria-label="Buscar"
+                name="nombre"
+                required
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Buscar
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <h1 class="text-center mt-5">Servicios</h1>
+
+      <div class="container mt-5 w-50">
+        <table
+          class="table table-striped table-hover table-bordered table-sm table-responsive text-center"
+        >
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col" style="width: 25%">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="servicio : ${servicios}" data-editing="false">
+              <!-- Nombre del servicio -->
+              <td class="align-middle">
+                <span th:text="${servicio.nombre}"></span>
+                <input
+                  class="form-control"
+                  type="text"
+                  style="display: none"
+                  th:value="${servicio.nombre}"
+                />
+              </td>
+              <!-- Botones -->
+              <td>
+                <button class="btn btn-primary" onclick="toggleEdit(this)">
+                  Editar
+                </button>
+                <button
+                  class="btn btn-success"
+                  style="display: none"
+                  onclick="saveChanges(this)"
+                  th:data-id="${servicio.id}"
+                >
+                  Guardar
+                </button>
+                <a
+                  th:href="@{/servicios/eliminar/{id}(id=${servicio.id})}"
+                  class="btn btn-danger"
+                >
+                  Eliminar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal para crear servicio -->
+      <div
+        class="modal fade"
+        id="crearServicioModal"
+        tabindex="-1"
+        aria-labelledby="crearServicioModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="crearServicioModalLabel">
+                Crear Servicio
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="crearServicioForm">
+                <div class="mb-3">
+                  <label for="nombreServicio" class="form-label"
+                    >Nombre del Servicio</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nombreServicio"
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Crear</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+      >
+        <p class="col-md-4 mb-0 text-muted">&copy; 2024 Frank Reparaciones</p>
+
+        <a
+          href="/"
+          class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+        >
+          <svg class="bi me-2" width="40" height="32">
+            <use xlink:href="#bootstrap" />
+          </svg>
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item">
+            <a href="/" class="nav-link px-2 text-muted">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a href="/facturas/ver" class="nav-link px-2 text-muted"
+              >Facturas</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/clientes/ver" class="nav-link px-2 text-muted"
+              >Clientes</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/servicios/ver" class="nav-link px-2 text-muted"
+              >Servicios</a
+            >
+          </li>
+        </ul>
+      </footer>
+    </div>
+
+    <script>
+      // Función para manejar el envío del formulario
+      document
+        .getElementById("crearServicioForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Capturar el valor del campo
+          const nombreServicio =
+            document.getElementById("nombreServicio").value;
+
+          // Enviar datos al backend
+          const response = await fetch("/servicios/crear", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ nombre: nombreServicio }),
+          });
+
+          if (response.ok) {
+            const nuevoServicio = await response.json();
+            agregarFila(nuevoServicio); // Agregar fila dinámicamente
+            bootstrap.Modal.getInstance(
+              document.getElementById("crearServicioModal")
+            ).hide();
+            document.getElementById("crearServicioForm").reset();
+          } else {
+            alert("Error al crear el servicio");
+          }
+        });
+
+      // Función para agregar una fila a la tabla
+      function agregarFila(servicio) {
+        const tbody = document.getElementById("serviciosTableBody");
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+      <td>${servicio.nombre}</td>
+      <td>
+        <button class="btn btn-primary" onclick="toggleEdit(this)" data-id="${servicio.id}">Editar</button>
+        <a href="/servicios/eliminar/${servicio.id}" class="btn btn-danger">Eliminar</a>
+      </td>
+    `;
+        tbody.appendChild(fila);
+      }
+    </script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class ServicioServiceImpl implements ServicioService {
     }
 
     @Override
-    public Collection<Servicio> findAll() {
+    public List<Servicio> findAll() {
         return servicioRepository.findAll();
     }
 
@@ -37,6 +37,11 @@ public class ServicioServiceImpl implements ServicioService {
     @Override
     public void update(Servicio servicio) {
         servicioRepository.save(servicio);
+    }
+
+    @Override
+    public List<Servicio> findByNombreContainingIgnoreCase(String nombre) {
+        return servicioRepository.findByNombreContainingIgnoreCase(nombre);
     }
 
 }
